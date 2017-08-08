@@ -52,9 +52,9 @@ func main() {
 func clientMain(addr string, times int, wg *sync.WaitGroup) error {
 
 	for i := 0; i < times; i++ {
-		stream := quicpool.Get(addr)
-		if stream == nil {
-			log.Println("can get stream ", addr)
+		stream, err := quicpool.Get(addr)
+		if err != nil {
+			log.Println("can get stream ", addr, err.Error())
 			return nil
 		}
 		wg.Add(1)
